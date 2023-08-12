@@ -19,6 +19,7 @@ import {
   profileOutline,
 } from "../../components/IconsFunsctions/tabIcons";
 import { useThemeContext } from "../../context/ThemeContext";
+import Header from "../../components/Others/Header";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,13 +30,15 @@ const TabStack = () => {
     unmountOnBlur: false,
     headerShown: false,
     tabBarStyle: {
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.tabBackground,
       //   height: 80,
       //   marginHorizontal: 10,
       //   marginBottom: 10,
       //   borderRadius: 100,
       position: "absolute",
       paddingHorizontal: 20,
+      borderColor: theme.colors.tabBackground,
+      borderTopWidth: 0
     },
     background: "#ffffff00",
     tabBarActiveTintColor: theme.colors.primary,
@@ -47,7 +50,7 @@ const TabStack = () => {
     },
   };
   const sceneContainerStyle = {
-    backgroundColor: "none",
+    backgroundColor: theme.colors.background,
   };
   return (
     <Tab.Navigator {...{ screenOptions, sceneContainerStyle }}>
@@ -65,8 +68,8 @@ const TabStack = () => {
                 height="32"
               />
             ),
-          // headerShown: true,
-          // header: () => <Header title={'Apartments'}/>
+          headerShown: true,
+          header: () => <Header title={'Home Page'}/>
         }}
         component={Home}
       />
@@ -134,27 +137,29 @@ const TabStack = () => {
 };
 
 const BigTabButton = (props) => {
-  return (
+    
+    const { theme, toggleTheme } = useThemeContext();
+    return (
     <TouchableOpacity
       style={
-        props.accessibilityState?.selected === true
+        [props.accessibilityState?.selected === true
           ? styles.bigTabButton
-          : styles.notTabButton
+          : styles.notTabButton, {backgroundColor: theme.colors.tabBackground}]
       }
       onPress={() => props.onPress()}
     >
       <View
         style={
-          props.accessibilityState?.selected === true
+         [ props.accessibilityState?.selected === true
             ? styles.padButton
-            : styles.notPadButton
+            : styles.notPadButton, {backgroundColor: props.accessibilityState?.selected === true ? theme.colors.primary : "#ffffff00"}]
         }
       >
         <SvgXml
           xml={plus}
           width="40"
           color={
-            props.accessibilityState?.selected === true ? "#fff" : "#1E00AD"
+            props.accessibilityState?.selected === true ? "#fff" : theme.colors.primary
           }
           height="32"
         />
