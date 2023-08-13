@@ -20,6 +20,7 @@ import {
 } from "../../components/IconsFunsctions/tabIcons";
 import { useThemeContext } from "../../context/ThemeContext";
 import Header from "../../components/Others/Header";
+import HomeStack from "./HomeSTack";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +56,7 @@ const TabStack = () => {
   return (
     <Tab.Navigator {...{ screenOptions, sceneContainerStyle }}>
       <Tab.Screen
-        name="Home"
+        name="HomeStack"
         options={{
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
@@ -71,7 +72,7 @@ const TabStack = () => {
           headerShown: true,
           header: () => <Header title={'Home Page'}/>
         }}
-        component={Home}
+        component={HomeStack}
       />
       <Tab.Screen
         name="Cart"

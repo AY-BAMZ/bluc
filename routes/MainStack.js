@@ -14,13 +14,13 @@ export default function MainNav() {
     
     <NavigationContainer >
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="SignInStack"
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="SignInStack" component={SignInStack} />
-        <Stack.Screen name="Home" component={TabStack} />
+        <Stack.Screen name="TabStack" component={TabStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );
