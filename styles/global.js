@@ -61,18 +61,19 @@ export const globalStyles = StyleSheet.create({
     // maxWidth: "100%",
     flexDirection: "row",
     alignItems: "center",
-    height: 50,
-    fontSize: 18,
+    height: 40,
+    fontSize: 16,
     paddingHorizontal: 15,
     borderRadius: 8,
     borderWidth: 0,
     marginVertical: 4,
+    borderBottomWidth: 1,
     // textAlign: 'center'
   },
   label: {
     fontFamily: "outfit-medium",
     color: "#777",
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 8,
   },
   inputTwo: {
@@ -104,15 +105,15 @@ export const globalStyles = StyleSheet.create({
     fontSize: 20,
   },
   textFive: {
-    fontFamily: "outfit-medium",
+    fontFamily: "outfit-regular",
     fontSize: 18,
   },
   textSix: {
-    fontFamily: "outfit-medium",
+    fontFamily: "outfit-light",
     fontSize: 16,
   },
   textSeven: {
-    fontFamily: "outfit-regular",
+    fontFamily: "outfit-light",
     fontSize: 14,
   },
   textEight: {

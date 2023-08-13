@@ -6,21 +6,26 @@ import React from "react";
 // import TabStack from "./TabStack/TabStack";
 import SignInStack from "./SignInRoutes/SignInStack";
 import TabStack from "./TabRoutes/TabStack";
+import { useAuthContext } from "../context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function MainNav() {
+
+  const {user} = useAuthContext()
   return (
     
     <NavigationContainer >
       <Stack.Navigator
-        initialRouteName="SignInStack"
+        // initialRouteName="SignInStack"
         screenOptions={{
           headerShown: false,
         }}
-      >
-        <Stack.Screen name="SignInStack" component={SignInStack} />
+      >{
+        !user? 
+        <Stack.Screen name="SignInStack" component={SignInStack} />:
         <Stack.Screen name="TabStack" component={TabStack} />
+      }
       </Stack.Navigator>
     </NavigationContainer>
   );

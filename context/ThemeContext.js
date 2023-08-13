@@ -17,19 +17,28 @@ export const useThemeContext = () => {
     colors: {
       primary: isDarkTheme ? '#7041FF' : '#1E00AD',
       background: isDarkTheme ? '#161E29' : '#fff',
-      tabBackground: isDarkTheme ? '#111822' : '#F8F9FB',
-      cardBackground: isDarkTheme ? '#212D3D' : '#F8F9FB',
+      tabBackground: isDarkTheme ? '#0A111B' : '#F8F9FB',
+      cardBackground: isDarkTheme ? '#212D3D' : '#EEF1FF',
+      lightCardBackground: isDarkTheme ? '#2D4264' : '#EEF1FF',
+      hyperText: isDarkTheme ? '#8E73D5' : '#1E00AD',
       text: isDarkTheme ? '#ffffff' : '#292D32',
+      textLight: isDarkTheme ? '#ddd' : '#555',
+      textExtraLight: isDarkTheme ? '#ccc' : '#777',
+      placeholder: isDarkTheme ? '#aaa' : '#aaa',
       black: isDarkTheme ? '#ffffff' : '#292D32',
       buttonBackground: isDarkTheme ? '#7041FF' : '#5338A8',
       inputBackground: isDarkTheme ? '#212D3D' : '#F5F7F7',
+      yellow: isDarkTheme ? '#FFFF00' : '#D3BE00',
+      orange: isDarkTheme ? '#FE7902' : '#E36D00',
+      green: isDarkTheme ? '#32C71A' : '#2D9A1C',
+      shadowColor: isDarkTheme ? '#000' : '#99',
       // ... other theme properties
     },
     // ... other theme properties
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, isDarkTheme }}>
       {children}
     </ThemeContext.Provider>
   );

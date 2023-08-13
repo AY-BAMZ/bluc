@@ -7,6 +7,7 @@ import * as Font from "expo-font";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MainNav from "./routes/MainStack";
 import ThemeProvider from "./context/ThemeContext";
+import AuthProvider from "./context/AuthContext";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -28,9 +29,11 @@ export default function App() {
       <>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <PaperProvider>
-            <ThemeProvider>
-              <MainNav />
-            </ThemeProvider>
+            <AuthProvider>
+              <ThemeProvider>
+                <MainNav />
+              </ThemeProvider>
+            </AuthProvider>
           </PaperProvider>
         </GestureHandlerRootView>
       </>

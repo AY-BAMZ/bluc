@@ -13,14 +13,17 @@ import React, { useState } from "react";
 import { globalStyles } from "../../styles/global";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useThemeContext } from "../../context/ThemeContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState();
+
+  const {setUser} = useAuthContext()
 
   const { theme, isDarkTheme, toggleTheme } = useThemeContext();
 
@@ -32,11 +35,16 @@ export default function Login() {
     }
   };
 
-  const darkPageBackground = "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png"
-  const lightPageBackground = "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png"
+  const darkPageBackground =
+    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png";
+  const lightPageBackground =
+    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png";
+
   return (
     <ImageBackground
-      source={isDarkTheme ? { uri: darkPageBackground } : { uri: lightPageBackground }} // Replace with the path to your image
+      source={
+        isDarkTheme ? { uri: darkPageBackground } : { uri: lightPageBackground }
+      } // Replace with the path to your image
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
@@ -47,21 +55,39 @@ export default function Login() {
           }}
           style={styles.form}
         >
-          <Text style={globalStyles.textTwo}>Login</Text>
-          <Text style={styles.text}>
-            Hello, this is a page with a background image!
+          <Text
+            style={[
+              globalStyles.textTwo,
+              { color: theme.colors.text, marginVertical: 12 },
+            ]}
+          >
+            Log In
+          </Text>
+          <Text
+            style={[
+              globalStyles.textSix,
+              { color: theme.colors.textLight, marginVertical: 8 },
+            ]}
+          >
+            welcome back, login to keep your goals running
           </Text>
           {errorMsg ? (
             <Text style={globalStyles.error}>{errorMsg}</Text>
           ) : (
             <Text style={globalStyles.noError}></Text>
           )}
-          <Text style={globalStyles.label}>Email</Text>
+          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
+            Email
+          </Text>
           <TextInput
             style={[
               globalStyles.input,
-              { backgroundColor: theme.colors.inputBackground },
+              {
+                borderBottomColor: theme.colors.primary,
+                color: theme.colors.text,
+              },
             ]}
+            placeholderTextColor={theme.colors.placeholder}
             placeholder="Enter your email"
             value={email}
             autoComplete="email"
@@ -70,12 +96,18 @@ export default function Login() {
             returnKeyType="next"
             blurOnSubmit={false}
           />
-          <Text style={globalStyles.label}>Password</Text>
+          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
+            Password
+          </Text>
           <TextInput
             style={[
               globalStyles.input,
-              { backgroundColor: theme.colors.inputBackground },
+              {
+                borderBottomColor: theme.colors.primary,
+                color: theme.colors.text,
+              },
             ]}
+            placeholderTextColor={theme.colors.placeholder}
             placeholder="Enter your password"
             value={password}
             onChangeText={(val) => updateInputVal(val, "password")}
@@ -84,9 +116,32 @@ export default function Login() {
             blurOnSubmit={false}
           />
         </TouchableWithoutFeedback>
+        <TouchableOpacity
+          style={{
+            justifyContent: "left",
+            alignItems: "flex-start",
+            width: customWidth,
+          }}
+        >
+          <Text
+            onPress={() => navigation.navigate("Register")}
+            style={[
+              globalStyles.buttonTextTwo,
+              {
+                color: theme.colors.hyperText,
+                marginBottom: customHeight * 0.12,
+                textAlign: "left",
+                marginHorizontal: 20,
+                marginTop: 8,
+              },
+            ]}
+          >
+            Forgot Password
+          </Text>
+        </TouchableOpacity>
         <View style={styles.buttons}>
           <TouchableOpacity
-            onPress={toggleTheme}
+            onPress={() => setUser(true)}
             style={[
               globalStyles.button,
               {
@@ -96,13 +151,16 @@ export default function Login() {
             ]}
           >
             <Text style={[globalStyles.buttonText, { color: "#fff" }]}>
-              Log In{" "}
+              Log In
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={globalStyles.buttonTwo}>
             <Text
               onPress={() => navigation.navigate("Register")}
-              style={globalStyles.buttonTextTwo}
+              style={[
+                globalStyles.buttonTextTwo,
+                { color: theme.colors.hyperText },
+              ]}
             >
               Don't have an account? Sign Up
             </Text>
@@ -123,7 +181,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    minHeight: customHeight - 100000,
+    minHeight: customHeight,
   },
   logo: {
     width: 120,
@@ -133,6 +191,6 @@ const styles = StyleSheet.create({
   form: {
     width: customWidth - 40,
     marginHorizontal: 20,
-    paddingVertical: customHeight * 0.12,
+    paddingTop: customHeight * 0.12,
   },
 });

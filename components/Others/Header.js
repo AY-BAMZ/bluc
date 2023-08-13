@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { menuIcon, notificationIcon } from "../IconsFunsctions/headerIcons";
+import { menuIcon, notificationIcon } from "../IconsFunctions/headerIcons";
 import { SvgXml } from "react-native-svg";
 import { useThemeContext } from "../../context/ThemeContext";
+import { globalStyles } from "../../styles/global";
 
 export default function Header(props) {
   const { theme, toggleTheme } = useThemeContext();
@@ -17,7 +18,12 @@ export default function Header(props) {
           height="32"
         />
       </TouchableOpacity>
-      <Text>{props.title}</Text>
+      <Text style={[
+              globalStyles.textFour,
+              {
+                color: theme.colors.text,
+              },
+            ]}>{props.title}</Text>
       <TouchableOpacity>
         <SvgXml
           xml={notificationIcon}

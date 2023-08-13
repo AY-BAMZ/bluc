@@ -17,7 +17,7 @@ import {
   plus,
   profile,
   profileOutline,
-} from "../../components/IconsFunsctions/tabIcons";
+} from "../../components/IconsFunctions/tabIcons";
 import { useThemeContext } from "../../context/ThemeContext";
 import Header from "../../components/Others/Header";
 import HomeStack from "./HomeSTack";
@@ -36,6 +36,11 @@ const TabStack = () => {
       //   marginHorizontal: 10,
       //   marginBottom: 10,
       //   borderRadius: 100,
+      elevation: 5, // This sets the shadow on Android (may not work on all versions)
+    shadowColor: theme.colors.shadowColor,
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
       position: "absolute",
       paddingHorizontal: 20,
       borderColor: theme.colors.tabBackground,
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "#fff",
     borderRadius: 50,
-    marginTop: -30,
+    marginTop: -35,
     // backgroundColor: "#1E00AD",
     // borderWidth: 5,
     borderColor: "#f7f7f7",
@@ -214,7 +219,7 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "#FFF",
     borderRadius: 50,
-    marginTop: -30,
+    marginTop: -35,
     // backgroundColor: "#aaa",
     // borderWidth: 5,
     borderColor: "#f7f7f7",
