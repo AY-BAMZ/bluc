@@ -13,7 +13,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: 24,
   },
   button: {
-    backgroundColor: "#79007B",
     alignItems: "center",
     justifyContent: "center",
     height: 50,
@@ -62,11 +61,11 @@ export const globalStyles = StyleSheet.create({
     // maxWidth: "100%",
     flexDirection: "row",
     alignItems: "center",
-    height: 40,
+    height: 50,
     fontSize: 18,
     paddingHorizontal: 15,
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 0,
     marginVertical: 4,
     // textAlign: 'center'
   },

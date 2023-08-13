@@ -21,6 +21,8 @@ export const useThemeContext = () => {
       cardBackground: isDarkTheme ? '#212D3D' : '#F8F9FB',
       text: isDarkTheme ? '#ffffff' : '#292D32',
       black: isDarkTheme ? '#ffffff' : '#292D32',
+      buttonBackground: isDarkTheme ? '#7041FF' : '#5338A8',
+      inputBackground: isDarkTheme ? '#212D3D' : '#F5F7F7',
       // ... other theme properties
     },
     // ... other theme properties

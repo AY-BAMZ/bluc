@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import { globalStyles } from "../../styles/global";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useThemeContext } from "../../context/ThemeContext";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -21,6 +22,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState();
 
+  const { theme, isDarkTheme, toggleTheme } = useThemeContext();
+
   const updateInputVal = (val, prop) => {
     if (prop === "email") {
       setEmail(val);
@@ -29,9 +32,11 @@ export default function Login() {
     }
   };
 
+  const darkPageBackground = "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png"
+  const lightPageBackground = "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png"
   return (
     <ImageBackground
-      source={require("../../assets/images/sign_in_bg.png")} // Replace with the path to your image
+      source={isDarkTheme ? { uri: darkPageBackground } : { uri: lightPageBackground }} // Replace with the path to your image
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
@@ -53,7 +58,10 @@ export default function Login() {
           )}
           <Text style={globalStyles.label}>Email</Text>
           <TextInput
-            style={globalStyles.input}
+            style={[
+              globalStyles.input,
+              { backgroundColor: theme.colors.inputBackground },
+            ]}
             placeholder="Enter your email"
             value={email}
             autoComplete="email"
@@ -64,7 +72,10 @@ export default function Login() {
           />
           <Text style={globalStyles.label}>Password</Text>
           <TextInput
-            style={globalStyles.input}
+            style={[
+              globalStyles.input,
+              { backgroundColor: theme.colors.inputBackground },
+            ]}
             placeholder="Enter your password"
             value={password}
             onChangeText={(val) => updateInputVal(val, "password")}
@@ -75,10 +86,18 @@ export default function Login() {
         </TouchableWithoutFeedback>
         <View style={styles.buttons}>
           <TouchableOpacity
-            // onPress={() => userLogin()}
-            style={globalStyles.button}
+            onPress={toggleTheme}
+            style={[
+              globalStyles.button,
+              {
+                backgroundColor: theme.colors.buttonBackground,
+                width: customWidth - 40,
+              },
+            ]}
           >
-            <Text style={globalStyles.buttonText}>Log In</Text>
+            <Text style={[globalStyles.buttonText, { color: "#fff" }]}>
+              Log In{" "}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={globalStyles.buttonTwo}>
             <Text
@@ -114,6 +133,6 @@ const styles = StyleSheet.create({
   form: {
     width: customWidth - 40,
     marginHorizontal: 20,
-    paddingVertical:100
+    paddingVertical: customHeight * 0.12,
   },
 });
