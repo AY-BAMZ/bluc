@@ -51,11 +51,11 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     height: 120,
     paddingHorizontal: 15,
-    borderRadius: 8,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     fontSize: 18,
     marginVertical: 4,
     // textAlign: 'center'
+    fontSize: 16,
   },
   input: {
     // maxWidth: "100%",
@@ -64,7 +64,7 @@ export const globalStyles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     paddingHorizontal: 15,
-    borderRadius: 8,
+    // borderRadius: 8,
     borderWidth: 0,
     marginVertical: 4,
     borderBottomWidth: 1,

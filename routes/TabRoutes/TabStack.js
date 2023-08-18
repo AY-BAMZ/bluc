@@ -21,6 +21,7 @@ import {
 import { useThemeContext } from "../../context/ThemeContext";
 import Header from "../../components/Others/Header";
 import HomeStack from "./HomeSTack";
+import CreateGoalStack from "./CreateGoalStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -99,7 +100,7 @@ const TabStack = () => {
       />
       <Tab.Screen
         name="Create"
-        component={CreateGoal}
+        component={CreateGoalStack}
         options={{ tabBarButton: (props) => <BigTabButton {...props} /> }}
       />
       <Tab.Screen

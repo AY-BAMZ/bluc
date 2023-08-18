@@ -7,7 +7,7 @@ export const useThemeContext = () => {
 };
 
  const ThemeProvider = ({ children }) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -19,7 +19,7 @@ export const useThemeContext = () => {
       background: isDarkTheme ? '#161E29' : '#fff',
       tabBackground: isDarkTheme ? '#0A111B' : '#F8F9FB',
       cardBackground: isDarkTheme ? '#212D3D' : '#EEF1FF',
-      lightCardBackground: isDarkTheme ? '#2D4264' : '#EEF1FF',
+      lightCardBackground: isDarkTheme ? '#2D4264' : '#dde0ee',
       hyperText: isDarkTheme ? '#8E73D5' : '#1E00AD',
       text: isDarkTheme ? '#ffffff' : '#292D32',
       textLight: isDarkTheme ? '#ddd' : '#555',

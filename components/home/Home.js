@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   goalCards: {
-    marginLeft: 20,
-    paddingRight: 20,
+    // marginLeft: 20,
+    paddingHorizontal: 20,
   },
   heading: {
     marginHorizontal: 20,
