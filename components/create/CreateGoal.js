@@ -12,25 +12,66 @@ import { useThemeContext } from "../../context/ThemeContext";
 import { globalStyles } from "../../styles/global";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import DatePicker from "react-native-datepicker";
+import { TouchableOpacity } from "react-native";
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
 
 export default function CreateGoal() {
   const { theme, toggleTheme } = useThemeContext();
-
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
   const [title, setTitle] = useState("");
 
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [showEndTimePicker, setShowEndTimePicker] = useState(false);
+
   const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowPicker(Platform.OS === "ios");
-    setDate(currentDate);
+    setShowDatePicker(false);
+    if (selectedDate !== undefined) {
+      setDate(selectedDate);
+    }
   };
 
-  const showDatepicker = () => {
-    setShowPicker(true);
+  const handleTimeChange = (event, selectedTime) => {
+    setShowTimePicker(false);
+    if (selectedTime !== undefined) {
+      setTime(selectedTime);
+    }
+  };
+
+  const openDatePicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const openTimePicker = () => {
+    setShowTimePicker(true);
+  };
+  
+  const handleEndDateChange = (event, selectedEndDate) => {
+    setShowEndDatePicker(false);
+    if (selectedEndDate !== undefined) {
+      setEndDate(selectedEndDate);
+    }
+  };
+
+  const handleEndTimeChange = (event, selectedEndTime) => {
+    setShowEndTimePicker(false);
+    if (selectedEndTime !== undefined) {
+      setEndTime(selectedEndTime);
+    }
+  };
+
+  const openEndDatePicker = () => {
+    setShowEndDatePicker(true);
+  };
+
+  const openEndTimePicker = () => {
+    setShowEndTimePicker(true);
   };
 
   return (
@@ -85,37 +126,105 @@ export default function CreateGoal() {
           returnKeyType="next"
           blurOnSubmit={false}
         />
-        <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
-          Email
-        </Text>
-        <TextInput
-          style={[
-            globalStyles.input,
-            {
-              borderBottomColor: theme.colors.primary,
-              color: theme.colors.text,
-            },
-          ]}
-          placeholderTextColor={theme.colors.placeholder}
-          placeholder="Select a date"
-          returnKeyType="next"
-          blurOnSubmit={false}
-          onFocus={showDatepicker}
-          value={date.toDateString()}
-          editable={false}
-        />
       </TouchableWithoutFeedback>
-      {showPicker && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={handleDateChange}
-          style={styles.datePicker}
-        />
-      )}
+      <Text
+        style={[
+          globalStyles.label,
+          { color: theme.colors.textLight, marginHorizontal: 20 },
+        ]}
+      >
+        From:
+      </Text>
+      <View style={styles.pickers}>
+        <View style={styles.picker}>
+          {showDatePicker && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
+          <TouchableOpacity style={styles.datePicker} onPress={openDatePicker}>
+            {date ? (
+              <Text style={globalStyles.textSix}>
+                {date.toLocaleDateString()}
+              </Text>
+            ) : (
+              <Text style={globalStyles.textSix}>Choose Start date</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.picker}>
+          {showTimePicker && (
+            <DateTimePicker
+              value={time}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleTimeChange}
+            />
+          )}
+          <TouchableOpacity style={styles.datePicker} onPress={openTimePicker}>
+            {time ? (
+              <Text style={globalStyles.textSix}>
+                {time.toLocaleTimeString()}
+              </Text>
+            ) : (
+              <Text style={globalStyles.textSix}>Choose Start time</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Text
+        style={[
+          globalStyles.label,
+          { color: theme.colors.textLight, marginHorizontal: 20 },
+        ]}
+      >
+        To:
+      </Text>
+      <View style={styles.pickers}>
+        <View style={styles.picker}>
+          {showEndDatePicker && (
+            <DateTimePicker
+              value={endDate}
+              mode="date"
+              display="default"
+              onChange={handleEndDateChange}
+            />
+          )}
+          <TouchableOpacity style={styles.datePicker} onPress={openEndDatePicker}>
+            {endDate ? (
+              <Text style={globalStyles.textSix}>
+                {endDate.toLocaleDateString()}
+              </Text>
+            ) : (
+              <Text style={globalStyles.textSix}>Choose End date</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.picker}>
+          {showEndTimePicker && (
+            <DateTimePicker
+              value={endTime}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleEndTimeChange}
+            />
+          )}
+          <TouchableOpacity style={styles.datePicker} onPress={openEndTimePicker}>
+            {endTime ? (
+              <Text style={globalStyles.textSix}>
+                {endTime.toLocaleTimeString()}
+              </Text>
+            ) : (
+              <Text style={globalStyles.textSix}>Choose End time</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -132,5 +241,19 @@ const styles = StyleSheet.create({
   datePicker: {
     borderBottomWidth: 1,
     borderColor: "red",
+  },
+  datePicker: {
+    height: 40,
+    width: customWidth - 40,
+    borderBottomWidth: 1,
+  },
+  pickers: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginHorizontal: 20,
+    justifyContent: "space-between",
+  },
+  picker: {
+    paddingTop: 16,
   },
 });
