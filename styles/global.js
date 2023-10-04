@@ -8,6 +8,10 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  container:{
+    flex: 1,
+    overflow: "scroll"
+  },
   pageText: {
     fontFamily: "outfit-semibold",
     fontSize: 24,
@@ -29,6 +33,8 @@ export const globalStyles = StyleSheet.create({
     height: 50,
     borderRadius: 8,
     marginTop: 12,
+    marginHorizontal: 16,
+    width: customWidth - 32
   },
   buttonTextTwo: {
     fontFamily: "outfit-semibold",

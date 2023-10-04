@@ -14,6 +14,8 @@ import { globalStyles } from "../../styles/global";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useThemeContext } from "../../context/ThemeContext";
 import { useAuthContext } from "../../context/AuthContext";
+import PrimaryButton from "../shared/buttons/PrimaryButton";
+import TextButton from "../shared/buttons/TextButton";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -23,7 +25,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState();
 
-  const {setUser} = useAuthContext()
+  const { setUser } = useAuthContext();
 
   const { theme, isDarkTheme, toggleTheme } = useThemeContext();
 
@@ -140,31 +142,10 @@ export default function Login({ navigation }) {
           </Text>
         </TouchableOpacity>
         <View style={styles.buttons}>
-          <TouchableOpacity
-            onPress={() => setUser(true)}
-            style={[
-              globalStyles.button,
-              {
-                backgroundColor: theme.colors.buttonBackground,
-                width: customWidth - 40,
-              },
-            ]}
-          >
-            <Text style={[globalStyles.buttonText, { color: "#fff" }]}>
-              Log In
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={globalStyles.buttonTwo}>
-            <Text
-              onPress={() => navigation.navigate("Register")}
-              style={[
-                globalStyles.buttonTextTwo,
-                { color: theme.colors.hyperText },
-              ]}
-            >
-              Don't have an account? Sign Up
-            </Text>
-          </TouchableOpacity>
+          <PrimaryButton onPress={() => setUser(true)}>Log In</PrimaryButton>
+          <TextButton onPress={() => navigation.navigate("Register")}>
+            Don't have an account? Sign Up
+          </TextButton>
         </View>
       </View>
     </ImageBackground>

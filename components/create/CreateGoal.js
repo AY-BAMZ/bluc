@@ -18,6 +18,7 @@ import { SvgXml } from "react-native-svg";
 import { edit, save, trash } from "../IconsFunctions/createPageIcons";
 import { FlatList } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
+import PrimaryButton from "../shared/buttons/PrimaryButton";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -310,19 +311,19 @@ export default function CreateGoal() {
             onChangeText={setTaskText}
           />
           <TouchableOpacity
-            style={[
-              globalStyles.buttonTwo,
-              {  marginBottom:16 },
-            ]}
+            style={[globalStyles.buttonTwo, { marginBottom: 16 }]}
             onPress={addTask}
           >
             <Text
-              style={[globalStyles.buttonTextTwo, { color: theme.colors.hyperText }]}
+              style={[
+                globalStyles.buttonTextTwo,
+                { color: theme.colors.hyperText },
+              ]}
             >
               {tasks.length > 0 ? "Add a New Task" : "Add Task"}
             </Text>
           </TouchableOpacity>
-          <FlatList
+          <ScrollView
             data={tasks}
             keyExtractor={(task) => task.id}
             renderItem={({ item }) => (
@@ -389,19 +390,9 @@ export default function CreateGoal() {
             )}
           />
         </View>
-        <TouchableOpacity
-            style={[
-              globalStyles.buttonTwo,
-              { backgroundColor: theme.colors.primary, marginHorizontal:20},
-            ]}
-            // onPress={addTask}
-          >
-            <Text
-              style={[globalStyles.buttonTextTwo, { color: "white" }]}
-            >
-              Create Task
-            </Text>
-          </TouchableOpacity>
+        <PrimaryButton onPress={() => console.log("object :>> ")}>
+          Create Task
+        </PrimaryButton>
       </KeyboardAvoidingView>
     </ScrollView>
   );

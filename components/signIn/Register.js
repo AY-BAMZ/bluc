@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import { globalStyles } from "../../styles/global";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useThemeContext } from "../../context/ThemeContext";
+import PrimaryButton from "../shared/buttons/PrimaryButton";
+import TextButton from "../shared/buttons/TextButton";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -40,7 +42,9 @@ export default function Register({ navigation }) {
   return (
     <ImageBackground
       source={
-        isDarkTheme ? require("../../assets/images/sign_in_bg_2.png") : require("../../assets/images/sign_in_bg.png")
+        isDarkTheme
+          ? require("../../assets/images/sign_in_bg_2.png")
+          : require("../../assets/images/sign_in_bg.png")
       } // Replace with the path to your image
       style={styles.backgroundImage}
     >
@@ -134,31 +138,10 @@ export default function Register({ navigation }) {
         </TouchableWithoutFeedback>
 
         <View style={styles.buttons}>
-          <TouchableOpacity
-            onPress={toggleTheme}
-            style={[
-              globalStyles.button,
-              {
-                backgroundColor: theme.colors.buttonBackground,
-                width: customWidth - 40,
-              },
-            ]}
-          >
-            <Text style={[globalStyles.buttonText, { color: "#fff" }]}>
-              Create Account
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={globalStyles.buttonTwo}>
-            <Text
-              onPress={() => navigation.navigate("Login")}
-              style={[
-                globalStyles.buttonTextTwo,
-                { color: theme.colors.hyperText },
-              ]}
-            >
-              Have an account? Log In
-            </Text>
-          </TouchableOpacity>
+          <PrimaryButton onPress={toggleTheme}>Create Account</PrimaryButton>
+          <TextButton onPress={() => navigation.navigate("Login")}>
+            Have an account? Log In
+          </TextButton>
         </View>
       </View>
     </ImageBackground>

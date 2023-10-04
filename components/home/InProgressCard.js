@@ -86,7 +86,7 @@ export default function InProgressCard() {
         width={8}
         fill={progress}
         tintColor={theme.colors.hyperText}
-        onAnimationComplete={() => console.log("onAnimationComplete")}
+        onAnimationComplete={() => console.log("")}
         backgroundColor={theme.colors.lightCardBackground}
       >
         {(fill) => (

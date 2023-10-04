@@ -26,8 +26,8 @@ export default function Home() {
   ];
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    <View
+      style={[globalStyles.container, { backgroundColor: theme.colors.background }]}
     >
       <Hero />
       <View style={styles.heading}>
@@ -95,7 +95,7 @@ export default function Home() {
           </TouchableOpacity>
         )}
       />
-    </ScrollView>
+    </View>
   );
 }
 
