@@ -19,6 +19,7 @@ import { edit, save, trash } from "../IconsFunctions/createPageIcons";
 import { FlatList } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import PrimaryButton from "../shared/buttons/PrimaryButton";
+import BottomDatePicker from "../shared/modals/ButtomModal";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -109,6 +110,22 @@ export default function CreateGoal() {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
     // setEditingTaskId(null);
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleDateChangeOne = (date) => {
+    setSelectedDate(date);
+    handleCloseModal();
   };
 
   return (
@@ -390,6 +407,14 @@ export default function CreateGoal() {
             )}
           />
         </View>
+        <PrimaryButton onPress={handleOpenModal}>
+          Open
+        </PrimaryButton>
+        <BottomDatePicker
+        isVisible={isModalVisible}
+        onClose={handleCloseModal}
+        onDateChange={handleDateChangeOne}
+      />
         <PrimaryButton onPress={() => console.log("object :>> ")}>
           Create Task
         </PrimaryButton>

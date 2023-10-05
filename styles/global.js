@@ -36,6 +36,15 @@ export const globalStyles = StyleSheet.create({
     marginHorizontal: 16,
     width: customWidth - 32
   },
+  flexButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    borderRadius: 8,
+    marginTop: 12,
+    marginHorizontal: 16,
+    width: "100%"
+  },
   buttonTextTwo: {
     fontFamily: "outfit-semibold",
     fontSize: 16,
