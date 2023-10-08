@@ -210,9 +210,9 @@ export default function CreateGoal() {
               />
               <InputButton onPress={openModal}>
                 {date ? (
-                  <Text style={globalStyles.textSix}>{date}</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>{date}</Text>
                 ) : (
-                  <Text style={globalStyles.textSix}>Start date</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>Start date</Text>
                 )}
               </InputButton>
             </View>
@@ -224,11 +224,11 @@ export default function CreateGoal() {
               />
               <InputButton onPress={showTheTimePicker}>
                 {time ? (
-                  <Text style={globalStyles.textSix}>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>
                     {time.toLocaleTimeString()}
                   </Text>
                 ) : (
-                  <Text style={globalStyles.textSix}>Start time</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>Start time</Text>
                 )}
               </InputButton>
             </View>
@@ -257,9 +257,9 @@ export default function CreateGoal() {
               />
               <InputButton onPress={openEndDateModal}>
                 {endDate ? (
-                  <Text style={globalStyles.textSix}>{endDate}</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>{endDate}</Text>
                 ) : (
-                  <Text style={globalStyles.textSix}>End date</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>End date</Text>
                 )}
               </InputButton>
             </View>
@@ -271,11 +271,11 @@ export default function CreateGoal() {
               />
               <InputButton onPress={showTheEndTimePicker}>
                 {endTime ? (
-                  <Text style={globalStyles.textSix}>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>
                     {endTime.toLocaleTimeString()}
                   </Text>
                 ) : (
-                  <Text style={globalStyles.textSix}>End time</Text>
+                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>End time</Text>
                 )}
               </InputButton>
             </View>
