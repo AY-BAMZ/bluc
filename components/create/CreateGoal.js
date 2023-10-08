@@ -6,6 +6,7 @@ import {
   TextInput,
   Keyboard,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
 import { useThemeContext } from "../../context/ThemeContext";
@@ -20,6 +21,12 @@ import { FlatList } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import PrimaryButton from "../shared/buttons/PrimaryButton";
 import BottomDatePicker from "../shared/modals/ButtomModal";
+import InputComponent from "../shared/Forms/Input/InputComponent";
+import TextAreaComponent from "../shared/Forms/TextArea/TextAreaComponent";
+import FlexButton from "../shared/buttons/FlexButton";
+import TextButton from "../shared/buttons/TextButton";
+import TimeSelectorModal from "../shared/modals/TimeSelectorModal/TimeSelectorModal";
+import InputButton from "../shared/Forms/InputButton/InputButton";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -28,31 +35,20 @@ export default function CreateGoal() {
   const { theme, toggleTheme } = useThemeContext();
   const [title, setTitle] = useState("");
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [time, setTime] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState();
   const [endTime, setEndTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
 
-  const handleDateChange = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate !== undefined) {
-      setDate(selectedDate);
-    }
-  };
-
-  const handleTimeChange = (event, selectedTime) => {
+  const handleTimeChange = (event, time) => {
     setShowTimePicker(false);
-    if (selectedTime !== undefined) {
-      setTime(selectedTime);
+    if (time !== undefined) {
+      setTime(time);
     }
-  };
-
-  const openDatePicker = () => {
-    setShowDatePicker(true);
   };
 
   const openTimePicker = () => {
@@ -112,314 +108,282 @@ export default function CreateGoal() {
     // setEditingTaskId(null);
   };
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
+  const openModal = () => {
+    setShowDatePicker(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
+  const closeModal = () => {
+    setShowDatePicker(false);
   };
 
-  const handleDateChangeOne = (date) => {
-    setSelectedDate(date);
-    handleCloseModal();
+  const handleDateSelected = (date) => {
+    setDate(date);
+  };
+
+  const openEndDateModal = () => {
+    setShowEndDatePicker(true);
+  };
+
+  const closeEndDateModal = () => {
+    setShowEndDatePicker(false);
+  };
+
+  const handleEndDateSelected = (date) => {
+    setEndDate(date);
+  };
+
+  const showTheTimePicker = () => {
+    setShowTimePicker(true);
+  };
+
+  const hideTimePicker = () => {
+    setShowTimePicker(false);
+  };
+
+  const handleTimeSelected = (time) => {
+    setTime(time);
+    hideTimePicker();
+  };
+
+  const showTheEndTimePicker = () => {
+    setShowEndTimePicker(true);
+  };
+
+  const hideEndTimePicker = () => {
+    setShowEndTimePicker(false);
+  };
+
+  const handleEndTimeSelected = (time) => {
+    setEndTime(time);
+    hideEndTimePicker();
   };
 
   return (
-    <ScrollView
+    <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null}>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Keyboard.dismiss();
-          }}
-          style={styles.form}
+      <ScrollView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
         >
-          <Text
-            style={[globalStyles.textThree, { color: theme.colors.textLight }]}
-          >
-            Create a goal
-          </Text>
-          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
-            Title
-          </Text>
-          <TextInput
-            style={[
-              globalStyles.input,
-              {
-                borderBottomColor: theme.colors.primary,
-                color: theme.colors.text,
-              },
-            ]}
-            placeholderTextColor={theme.colors.placeholder}
-            placeholder="Enter your title"
-            value={title}
-            onChangeText={(val) => setTitle(val)}
-            returnKeyType="next"
-            blurOnSubmit={false}
-          />
-          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
-            Description
-          </Text>
-          <TextInput
-            style={[
-              globalStyles.textarea,
-              {
-                borderBottomColor: theme.colors.primary,
-                color: theme.colors.text,
-              },
-            ]}
-            multiline
-            placeholderTextColor={theme.colors.placeholder}
-            placeholder="Enter your goal description"
-            value={title}
-            onChangeText={(val) => setTitle(val)}
-            returnKeyType="next"
-            blurOnSubmit={false}
-          />
-        </TouchableWithoutFeedback>
-        <Text
-          style={[
-            globalStyles.label,
-            { color: theme.colors.textLight, marginHorizontal: 20 },
-          ]}
-        >
-          From:
-        </Text>
-        <View style={styles.pickers}>
-          <View style={styles.picker}>
-            {showDatePicker && (
-              <DateTimePicker
-                value={date}
-                mode="date"
-                display="default"
-                onChange={handleDateChange}
-              />
-            )}
-            <TouchableOpacity
-              style={[
-                styles.datePicker,
-                { borderBottomColor: theme.colors.primary },
-              ]}
-              onPress={openDatePicker}
-            >
-              {date ? (
-                <Text style={globalStyles.textSix}>
-                  {date.toLocaleDateString()}
-                </Text>
-              ) : (
-                <Text style={globalStyles.textSix}>Choose Start date</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.picker}>
-            {showTimePicker && (
-              <DateTimePicker
-                value={time}
-                mode="time"
-                is24Hour={true}
-                display="default"
-                onChange={handleTimeChange}
-              />
-            )}
-            <TouchableOpacity
-              style={[
-                styles.datePicker,
-                { borderBottomColor: theme.colors.primary },
-              ]}
-              onPress={openTimePicker}
-            >
-              {time ? (
-                <Text style={globalStyles.textSix}>
-                  {time.toLocaleTimeString()}
-                </Text>
-              ) : (
-                <Text style={globalStyles.textSix}>Choose Start time</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text
-          style={[
-            globalStyles.label,
-            { color: theme.colors.textLight, marginHorizontal: 20 },
-          ]}
-        >
-          To:
-        </Text>
-        <View style={styles.pickers}>
-          <View style={styles.picker}>
-            {showEndDatePicker && (
-              <DateTimePicker
-                value={endDate}
-                mode="date"
-                display="default"
-                onChange={handleEndDateChange}
-              />
-            )}
-            <TouchableOpacity
-              style={[
-                styles.datePicker,
-                { borderBottomColor: theme.colors.primary },
-              ]}
-              onPress={openEndDatePicker}
-            >
-              {endDate ? (
-                <Text style={globalStyles.textSix}>
-                  {endDate.toLocaleDateString()}
-                </Text>
-              ) : (
-                <Text style={globalStyles.textSix}>Choose End date</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.picker}>
-            {showEndTimePicker && (
-              <DateTimePicker
-                value={endTime}
-                mode="time"
-                is24Hour={true}
-                display="default"
-                onChange={handleEndTimeChange}
-              />
-            )}
-            <TouchableOpacity
-              style={[
-                styles.datePicker,
-                { borderBottomColor: theme.colors.primary },
-              ]}
-              onPress={openEndTimePicker}
-            >
-              {endTime ? (
-                <Text style={globalStyles.textSix}>
-                  {endTime.toLocaleTimeString()}
-                </Text>
-              ) : (
-                <Text style={globalStyles.textSix}>Choose End time</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Task creation */}
-        <Text
-          style={[
-            globalStyles.label,
-            { color: theme.colors.textLight, marginHorizontal: 20 },
-          ]}
-        >
-          Add Tasks
-        </Text>
-        <View style={styles.tasks}>
-          <TextInput
-            style={[
-              globalStyles.input,
-              {
-                borderBottomColor: theme.colors.primary,
-                color: theme.colors.text,
-              },
-            ]}
-            placeholder="Enter a task..."
-            value={taskText}
-            onChangeText={setTaskText}
-          />
-          <TouchableOpacity
-            style={[globalStyles.buttonTwo, { marginBottom: 16 }]}
-            onPress={addTask}
+          <TouchableWithoutFeedback
+            onPress={() => {
+              Keyboard.dismiss();
+            }}
+            style={styles.form}
           >
             <Text
               style={[
-                globalStyles.buttonTextTwo,
-                { color: theme.colors.hyperText },
+                globalStyles.textThree,
+                { color: theme.colors.textLight },
               ]}
             >
-              {tasks.length > 0 ? "Add a New Task" : "Add Task"}
+              Create a goal
             </Text>
-          </TouchableOpacity>
-          <ScrollView
-            data={tasks}
-            keyExtractor={(task) => task.id}
-            renderItem={({ item }) => (
-              <View style={styles.taskItem}>
-                {editingTaskId === item?.id ? (
-                  <TextInput
-                    style={[
-                      globalStyles.input,
-                      {
-                        borderBottomColor: theme.colors.primary,
-                        color: theme.colors.text,
-                        width: customWidth - 128,
-                        height: "auto",
-                      },
-                    ]}
-                    multiline
-                    value={item?.text}
-                    onChangeText={(newText) => editTask(item?.id, newText)}
-                  />
+            <InputComponent
+              placeholder="Enter goal title"
+              value={title}
+              onChangeText={(val) => setTitle(val)}
+              returnKeyType="next"
+            />
+            <TextAreaComponent
+              placeholder="Enter goal description"
+              value={title}
+              onChangeText={(val) => setTitle(val)}
+              returnKeyType="next"
+            />
+          </TouchableWithoutFeedback>
+          <Text
+            style={[
+              globalStyles.label,
+              { color: theme.colors.textLight, marginHorizontal: 20 },
+            ]}
+          >
+            From:
+          </Text>
+          <View style={styles.pickers}>
+            <View style={styles.picker}>
+              <BottomDatePicker
+                isVisible={showDatePicker}
+                onClose={closeModal}
+                onDateSelected={handleDateSelected}
+              />
+              <InputButton onPress={openModal}>
+                {date ? (
+                  <Text style={globalStyles.textSix}>{date}</Text>
                 ) : (
-                  <View
+                  <Text style={globalStyles.textSix}>Start date</Text>
+                )}
+              </InputButton>
+            </View>
+            <View style={styles.picker}>
+              <TimeSelectorModal
+                isVisible={showTimePicker}
+                onTimeSelected={handleTimeSelected}
+                onCancel={hideTimePicker}
+              />
+              <InputButton onPress={showTheTimePicker}>
+                {time ? (
+                  <Text style={globalStyles.textSix}>
+                    {time.toLocaleTimeString()}
+                  </Text>
+                ) : (
+                  <Text style={globalStyles.textSix}>Start time</Text>
+                )}
+              </InputButton>
+            </View>
+          </View>
+
+          {/* End date */}
+          <Text
+            style={[
+              globalStyles.label,
+              {
+                color: theme.colors.textLight,
+                marginHorizontal: 20,
+                marginTop: 20,
+              },
+            ]}
+          >
+            To:
+          </Text>
+
+          <View style={styles.pickers}>
+            <View style={styles.picker}>
+              <BottomDatePicker
+                isVisible={showEndDatePicker}
+                onClose={closeEndDateModal}
+                onDateSelected={handleEndDateSelected}
+              />
+              <InputButton onPress={openEndDateModal}>
+                {endDate ? (
+                  <Text style={globalStyles.textSix}>{endDate}</Text>
+                ) : (
+                  <Text style={globalStyles.textSix}>End date</Text>
+                )}
+              </InputButton>
+            </View>
+            <View style={styles.picker}>
+              <TimeSelectorModal
+                isVisible={showEndTimePicker}
+                onTimeSelected={handleEndTimeSelected}
+                onCancel={hideEndTimePicker}
+              />
+              <InputButton onPress={showTheEndTimePicker}>
+                {endTime ? (
+                  <Text style={globalStyles.textSix}>
+                    {endTime.toLocaleTimeString()}
+                  </Text>
+                ) : (
+                  <Text style={globalStyles.textSix}>End time</Text>
+                )}
+              </InputButton>
+            </View>
+          </View>
+
+          {/* Task creation */}
+          <View style={styles.tasks}>
+            <InputComponent
+              label={"Add Tasks"}
+              placeholder="Enter a task..."
+              value={taskText}
+              onChangeText={setTaskText}
+            />
+            <TextButton onPress={addTask}>
+              {tasks.length > 0 ? "Add a New Task" : "Add Task"}
+            </TextButton>
+            <FlatList
+              data={tasks}
+              keyExtractor={(task) => task.id}
+              renderItem={({ item }) => (
+                <View style={styles.taskItem}>
+                  {editingTaskId === item?.id ? (
+                    <TextInput
+                      style={[
+                        globalStyles.textarea,
+                        {
+                          color: theme.colors.text,
+                          backgroundColor: theme.colors.inputBackground,
+                          borderWidth: 0.2,
+                          borderRadius: 4,
+                          borderColor: theme.colors.lightCardBackground,
+                          minHeight: 40,
+                          marginRight: 4,
+                          width: customWidth - 132,
+                          height: "auto",
+                        },
+                      ]}
+                      multiline
+                      value={item?.text}
+                      onChangeText={(newText) => editTask(item?.id, newText)}
+                    />
+                  ) : (
+                    <View
+                      style={[
+                        styles.taskText,
+                        {
+                          backgroundColor: theme.colors.inputBackground,
+                          marginRight: 4,
+                          width: customWidth - 132,
+                        },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          globalStyles.textSix,
+                          { color: theme.colors.text, marginHorizontal: 16 },
+                        ]}
+                      >
+                        {item?.text}
+                      </Text>
+                    </View>
+                  )}
+                  <TouchableOpacity
+                    onPress={() =>
+                      editingTaskId === item?.id
+                        ? setEditingTaskId(null)
+                        : setEditingTaskId(item?.id)
+                    }
                     style={[
-                      styles.taskText,
+                      styles.editButton,
                       { backgroundColor: theme.colors.cardBackground },
                     ]}
                   >
-                    <Text
-                      style={[
-                        globalStyles.textFive,
-                        { color: theme.colors.text, marginHorizontal: 16 },
-                      ]}
-                    >
-                      {item?.text}
-                    </Text>
-                  </View>
-                )}
-                <TouchableOpacity
-                  onPress={() =>
-                    editingTaskId === item?.id
-                      ? setEditingTaskId(null)
-                      : setEditingTaskId(item?.id)
-                  }
-                  style={[
-                    styles.editButton,
-                    { backgroundColor: theme.colors.primary },
-                  ]}
-                >
-                  {editingTaskId === item?.id ? (
-                    <SvgXml xml={save} width="24" color="white" height="24" />
-                  ) : (
-                    <SvgXml xml={edit} width="24" color="white" height="24" />
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.deleteButton,
-                    { backgroundColor: theme.colors.red },
-                  ]}
-                  onPress={() => deleteTask(item?.id)}
-                >
-                  <SvgXml xml={trash} width="28" color="white" height="32" />
-                </TouchableOpacity>
-              </View>
-            )}
-          />
-        </View>
-        <PrimaryButton onPress={handleOpenModal}>
-          Open
-        </PrimaryButton>
-        <BottomDatePicker
-        isVisible={isModalVisible}
-        onClose={handleCloseModal}
-        onDateChange={handleDateChangeOne}
-      />
-        <PrimaryButton onPress={() => console.log("object :>> ")}>
-          Create Task
-        </PrimaryButton>
-      </KeyboardAvoidingView>
-    </ScrollView>
+                    {editingTaskId === item?.id ? (
+                      <SvgXml
+                        xml={save}
+                        width="16"
+                        color={theme.colors.primary}
+                        height="16"
+                      />
+                    ) : (
+                      <SvgXml
+                        xml={edit}
+                        width="16"
+                        color={theme.colors.primary}
+                        height="16"
+                      />
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.deleteButton,
+                      { backgroundColor: theme.colors.red },
+                    ]}
+                    onPress={() => deleteTask(item?.id)}
+                  >
+                    <SvgXml xml={trash} width="18" color="white" height="18" />
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+          </View>
+          <PrimaryButton onPress={() => console.log("object :>> ")}>
+            Create Task
+          </PrimaryButton>
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -427,33 +391,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 60,
+    overflow: "scroll",
   },
   form: {
     width: customWidth - 40,
     marginHorizontal: 20,
-  },
-  datePicker: {
-    borderBottomWidth: 1,
-    borderColor: "red",
-  },
-  datePicker: {
-    height: 40,
-    width: customWidth - 40,
-    borderBottomWidth: 1,
-    paddingHorizontal: 16,
+    gap: 12,
   },
   pickers: {
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 20,
     justifyContent: "space-between",
-  },
-  picker: {
-    paddingTop: 16,
+    gap: 12,
   },
   taskItem: {
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
     justifyContent: "flex-start",
     padding: 0,
     marginBottom: 5,

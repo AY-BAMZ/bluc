@@ -7,7 +7,7 @@ export default function TextButton({ onPress, children }) {
   const { theme, toggleTheme } = useThemeContext();
 
   return (
-    <TouchableOpacity style={globalStyles.buttonTwo}>
+    <TouchableOpacity style={[globalStyles.buttonTwo, {marginHorizontal: 0}]}>
       <Text
         onPress={onPress}
         style={[globalStyles.buttonTextTwo, { color: theme.colors.hyperText }]}

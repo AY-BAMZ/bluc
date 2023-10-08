@@ -8,9 +8,9 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  container:{
+  container: {
     flex: 1,
-    overflow: "scroll"
+    overflow: "scroll",
   },
   pageText: {
     fontFamily: "outfit-semibold",
@@ -34,7 +34,7 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 12,
     marginHorizontal: 16,
-    width: customWidth - 32
+    width: customWidth - 32,
   },
   flexButton: {
     alignItems: "center",
@@ -43,7 +43,7 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 12,
     marginHorizontal: 16,
-    width: "100%"
+    width: "100%",
   },
   buttonTextTwo: {
     fontFamily: "outfit-semibold",
@@ -61,28 +61,27 @@ export const globalStyles = StyleSheet.create({
     fontSize: 16,
   },
   textarea: {
-    // maxWidth: "100%",
     flexDirection: "row",
     alignItems: "center",
     height: 120,
     paddingHorizontal: 15,
-    borderBottomWidth: 1,
-    fontSize: 18,
+    paddingVertical: 12,
+    fontSize: 14,
+    fontFamily: "outfit-regular",
     marginVertical: 4,
     // textAlign: 'center'
-    fontSize: 16,
   },
   input: {
     // maxWidth: "100%",
     flexDirection: "row",
     alignItems: "center",
     height: 40,
-    fontSize: 16,
+    fontSize: 14,
     paddingHorizontal: 15,
     // borderRadius: 8,
     borderWidth: 0,
     marginVertical: 4,
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     // textAlign: 'center'
   },
   label: {
@@ -90,6 +89,7 @@ export const globalStyles = StyleSheet.create({
     color: "#777",
     fontSize: 14,
     marginTop: 8,
+    marginBottom: 4,
   },
   inputTwo: {
     maxWidth: "80%",

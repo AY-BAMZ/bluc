@@ -10,7 +10,7 @@ export default function FlexButton({onPress, children}) {
     <TouchableOpacity
       style={[
         globalStyles.flexButton,
-        { backgroundColor: theme.colors.primary, marginHorizontal: 20 },
+        { backgroundColor: theme.colors.primary, marginHorizontal: 0 },
       ]}
       onPress={onPress}
     >

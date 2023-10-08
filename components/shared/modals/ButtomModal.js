@@ -1,44 +1,121 @@
-import React, { useState } from 'react';
-import { View, Text, Button, Modal, StyleSheet } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import PrimaryButton from '../buttons/PrimaryButton';
-import FlexButton from '../buttons/FlexButton';
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  Button,
+  Modal,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import FlexButton from "../buttons/FlexButton";
+import { Calendar, LocaleConfig } from "react-native-calendars";
+import { useThemeContext } from "../../../context/ThemeContext";
+import { globalStyles } from "../../../styles/global";
+import { AntDesign } from "@expo/vector-icons";
 
-const BottomDatePicker = ({ isVisible, onClose, onDateChange }) => {
-  const [date, setDate] = useState(new Date());
+const customWidth = Dimensions.get("window").width;
 
-  const handleDateChange = (event, selectedDate) => {
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
+LocaleConfig.locales["en"] = {
+  monthNames: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+  monthNamesShort: [
+    "Jan.",
+    "Feb.",
+    "Mar.",
+    "Apr.",
+    "May",
+    "Jun.",
+    "Jul.",
+    "Aug.",
+    "Sep.",
+    "Oct.",
+    "Nov.",
+    "Dec.",
+  ],
+  dayNames: [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ],
+  dayNamesShort: ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."],
+};
+LocaleConfig.defaultLocale = "en";
+
+const BottomDatePicker = ({ isVisible, onClose, onDateSelected }) => {
+  const { theme, toggleTheme } = useThemeContext();
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
   };
 
-  const handleSave = () => {
-    onDateChange(date); // Pass the selected date back to the parent component
+  const handleSaveDate = () => {
+    if (selectedDate) {
+      onDateSelected(selectedDate);
+    }
     onClose();
   };
 
-
   return (
-    <Modal transparent={true} visible={isVisible} animationType="slide">
-      <View style={styles.overlay}>
+    <Modal
+      visible={isVisible}
+      transparent={true}
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+      onRequestClose={onClose}
+    >
+      <View style={[styles.overlay, { flex: 1, justifyContent: "flex-end" }]}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalHeaderText}>Select a Date</Text>
+          <View style={styles.header}>
+            <Text
+              style={[globalStyles.textFour, { color: theme.colors.textLight }]}
+            >
+              Choose a date
+            </Text>
+            <TouchableOpacity>
+              <AntDesign
+                name="close"
+                onPress={onClose}
+                style={[
+                  globalStyles.textFour,
+                  { color: theme.colors.textLight },
+                ]}
+              />
+            </TouchableOpacity>
           </View>
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={handleDateChange}
-        />
-        <FlexButton onPress={handleSave}>
-          Save
-        </FlexButton>
-        <Button title="Close" onPress={onClose} />
-      </View>
+          <Calendar
+            onDayPress={(day) => {
+              handleDateSelect(day.dateString);
+            }}
+            minDate={"2023-01-01"}
+            maxDate={"2023-12-31"}
+            markedDates={{
+              [selectedDate]: {
+                selected: true,
+                disableTouchEvent: true,
+                selectedDotColor: theme.colors.primaryColor,
+              },
+            }}
+          />
+          <FlexButton onPress={handleSaveDate}>Save</FlexButton>
+        </View>
       </View>
     </Modal>
   );
@@ -47,53 +124,24 @@ const BottomDatePicker = ({ isVisible, onClose, onDateChange }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
-    width: '80%',
+    width: "100%",
+    height: 500,
+    bottom: 0,
   },
-  modalHeader: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    marginBottom: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  modalHeaderText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  saveButton: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  saveButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  closeButton: {
-    backgroundColor: 'gray',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  closeButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
+  // ...your other styles
 });
 
 export default BottomDatePicker;
