@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Goals from "../../components/goals/Goals";
 import History from "../../components/history/History";
@@ -26,7 +26,7 @@ import CreateGoalStack from "./CreateGoalStack";
 const Tab = createBottomTabNavigator();
 
 const TabStack = () => {
-    const { theme, toggleTheme } = useThemeContext();
+  const { theme, toggleTheme } = useThemeContext();
 
   const screenOptions = {
     unmountOnBlur: false,
@@ -37,15 +37,15 @@ const TabStack = () => {
       //   marginHorizontal: 10,
       //   marginBottom: 10,
       //   borderRadius: 100,
-      elevation: 5, // This sets the shadow on Android (may not work on all versions)
-    shadowColor: theme.colors.shadowColor,
-    shadowOffset: { width: 0, height: -5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+      // elevation: 5,
+      // shadowColor: theme.colors.shadowColor,
+      // shadowOffset: { width: 0, height: -5 },
+      // shadowOpacity: 0.2,
+      // shadowRadius: 3,
       position: "absolute",
       paddingHorizontal: 20,
       borderColor: theme.colors.tabBackground,
-      borderTopWidth: 0
+      borderTopWidth: 0,
     },
     background: "#ffffff00",
     tabBarActiveTintColor: theme.colors.primary,
@@ -66,7 +66,12 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
-              <SvgXml xml={homeIcon} width="28" color={theme.colors.primary} height="32" />
+              <SvgXml
+                xml={homeIcon}
+                width="28"
+                color={theme.colors.primary}
+                height="32"
+              />
             ) : (
               <SvgXml
                 xml={homeIconOutline}
@@ -76,7 +81,7 @@ const TabStack = () => {
               />
             ),
           headerShown: true,
-          header: () => <Header title={'Home Page'}/>
+          header: () => <Header title={"Home Page"} />,
         }}
         component={HomeStack}
       />
@@ -85,7 +90,12 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
-              <SvgXml xml={goals} width="28" color={theme.colors.primary} height="32" />
+              <SvgXml
+                xml={goals}
+                width="28"
+                color={theme.colors.primary}
+                height="32"
+              />
             ) : (
               <SvgXml
                 xml={goalsOutline}
@@ -108,7 +118,12 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
-              <SvgXml xml={history} width="28" color={theme.colors.primary} height="32" />
+              <SvgXml
+                xml={history}
+                width="28"
+                color={theme.colors.primary}
+                height="32"
+              />
             ) : (
               <SvgXml
                 xml={historyOutline}
@@ -126,7 +141,12 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
-              <SvgXml xml={profile} width="28" color={theme.colors.primary} height="32" />
+              <SvgXml
+                xml={profile}
+                width="28"
+                color={theme.colors.primary}
+                height="32"
+              />
             ) : (
               <SvgXml
                 xml={profileOutline}
@@ -144,34 +164,42 @@ const TabStack = () => {
 };
 
 const BigTabButton = (props) => {
-    
-    const { theme, toggleTheme } = useThemeContext();
-    return (
-    <TouchableOpacity
-      style={
-        [props.accessibilityState?.selected === true
+  const { theme, toggleTheme } = useThemeContext();
+  return (
+    <Pressable
+      style={[
+        props.accessibilityState?.selected === true
           ? styles.bigTabButton
-          : styles.notTabButton, {backgroundColor: theme.colors.tabBackground}]
-      }
+          : styles.notTabButton,
+        { backgroundColor: theme.colors.tabBackground },
+      ]}
       onPress={() => props.onPress()}
     >
       <View
-        style={
-         [ props.accessibilityState?.selected === true
+        style={[
+          props.accessibilityState?.selected === true
             ? styles.padButton
-            : styles.notPadButton, {backgroundColor: props.accessibilityState?.selected === true ? theme.colors.primary : "#ffffff00"}]
-        }
+            : styles.notPadButton,
+          {
+            backgroundColor:
+              props.accessibilityState?.selected === true
+                ? theme.colors.primary
+                : "#ffffff00",
+          },
+        ]}
       >
         <SvgXml
           xml={plus}
           width="40"
           color={
-            props.accessibilityState?.selected === true ? "#fff" : theme.colors.primary
+            props.accessibilityState?.selected === true
+              ? "#fff"
+              : theme.colors.primary
           }
           height="32"
         />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -44,38 +44,6 @@ export default function CreateGoal() {
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
 
-  const handleTimeChange = (event, time) => {
-    setShowTimePicker(false);
-    if (time !== undefined) {
-      setTime(time);
-    }
-  };
-
-  const openTimePicker = () => {
-    setShowTimePicker(true);
-  };
-
-  const handleEndDateChange = (event, selectedEndDate) => {
-    setShowEndDatePicker(false);
-    if (selectedEndDate !== undefined) {
-      setEndDate(selectedEndDate);
-    }
-  };
-
-  const handleEndTimeChange = (event, selectedEndTime) => {
-    setShowEndTimePicker(false);
-    if (selectedEndTime !== undefined) {
-      setEndTime(selectedEndTime);
-    }
-  };
-
-  const openEndDatePicker = () => {
-    setShowEndDatePicker(true);
-  };
-
-  const openEndTimePicker = () => {
-    setShowEndTimePicker(true);
-  };
 
   // create, edit and delete tasks
   const [tasks, setTasks] = useState([]);
@@ -289,7 +257,7 @@ export default function CreateGoal() {
               value={taskText}
               onChangeText={setTaskText}
             />
-            <TextButton onPress={addTask}>
+            <TextButton onPress={addTask} >
               {tasks.length > 0 ? "Add a New Task" : "Add Task"}
             </TextButton>
             <FlatList

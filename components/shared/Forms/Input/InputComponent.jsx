@@ -9,12 +9,19 @@ function InputComponent({
   onChangeText,
   returnKeyType,
   label,
+  keyboardType,
+  autoComplete,secureTextEntry, maxLength
 }) {
   const { theme, toggleTheme } = useThemeContext();
   return (
     <>
       {label ? (
-        <Text style={[globalStyles.label, { color: theme.colors.textLight, marginTop: 20, }]}>
+        <Text
+          style={[
+            globalStyles.label,
+            { color: theme.colors.textLight, marginTop: 20 },
+          ]}
+        >
           {label}
         </Text>
       ) : (
@@ -27,7 +34,7 @@ function InputComponent({
             // borderBottomColor: theme.colors.primary,
             color: theme.colors.text,
             backgroundColor: theme.colors.inputBackground,
-            borderWidth: .2,
+            borderWidth: 0.2,
             borderRadius: 4,
             borderColor: theme.colors.lightCardBackground,
           },
@@ -35,8 +42,12 @@ function InputComponent({
         placeholderTextColor={theme.colors.placeholder}
         placeholder={placeholder}
         value={value}
+        autoComplete={autoComplete}
+        keyboardType={keyboardType}
         onChangeText={onChangeText}
         returnKeyType={returnKeyType}
+        secureTextEntry={secureTextEntry}
+        maxLength={maxLength}
         blurOnSubmit={false}
       />
     </>

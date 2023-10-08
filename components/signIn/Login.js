@@ -16,6 +16,7 @@ import { useThemeContext } from "../../context/ThemeContext";
 import { useAuthContext } from "../../context/AuthContext";
 import PrimaryButton from "../shared/buttons/PrimaryButton";
 import TextButton from "../shared/buttons/TextButton";
+import InputComponent from "../shared/Forms/Input/InputComponent";
 
 const customWidth = Dimensions.get("window").width;
 const customHeight = Dimensions.get("window").height;
@@ -78,49 +79,26 @@ export default function Login({ navigation }) {
           ) : (
             <Text style={globalStyles.noError}></Text>
           )}
-          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
-            Email
-          </Text>
-          <TextInput
-            style={[
-              globalStyles.input,
-              {
-                borderBottomColor: theme.colors.primary,
-                color: theme.colors.text,
-              },
-            ]}
-            placeholderTextColor={theme.colors.placeholder}
+          <InputComponent
             placeholder="Enter your email"
             value={email}
             autoComplete="email"
             keyboardType="email-address"
             onChangeText={(val) => updateInputVal(val, "email")}
             returnKeyType="next"
-            blurOnSubmit={false}
           />
-          <Text style={[globalStyles.label, { color: theme.colors.textLight }]}>
-            Password
-          </Text>
-          <TextInput
-            style={[
-              globalStyles.input,
-              {
-                borderBottomColor: theme.colors.primary,
-                color: theme.colors.text,
-              },
-            ]}
+          <InputComponent
             placeholderTextColor={theme.colors.placeholder}
             placeholder="Enter your password"
             value={password}
             onChangeText={(val) => updateInputVal(val, "password")}
             secureTextEntry={true}
             maxLength={15}
-            blurOnSubmit={false}
           />
         </TouchableWithoutFeedback>
         <TouchableOpacity
           style={{
-            justifyContent: "left",
+            // justifyContent: "left",
             alignItems: "flex-start",
             width: customWidth,
           }}
@@ -143,7 +121,10 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
         <View style={styles.buttons}>
           <PrimaryButton onPress={() => setUser(true)}>Log In</PrimaryButton>
-          <TextButton onPress={() => navigation.navigate("Register")}>
+          <TextButton
+            onPress={() => navigation.navigate("Register")}
+            marginHorizontal={16}
+          >
             Don't have an account? Sign Up
           </TextButton>
         </View>
@@ -173,5 +154,6 @@ const styles = StyleSheet.create({
     width: customWidth - 40,
     marginHorizontal: 20,
     paddingTop: customHeight * 0.12,
+    gap: 8,
   },
 });

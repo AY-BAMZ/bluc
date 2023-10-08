@@ -31,7 +31,7 @@ export const useThemeContext = () => {
       yellow: isDarkTheme ? '#FFFF00' : '#D3BE00',
       orange: isDarkTheme ? '#FE7902' : '#E36D00',
       green: isDarkTheme ? '#32C71A' : '#2D9A1C',
-      red: isDarkTheme ? '#32C71A' : '#ff0000',
+      red: isDarkTheme ? '#FF4C4C' : '#ff0000',
       shadowColor: isDarkTheme ? '#000' : '#99',
       // ... other theme properties
     },

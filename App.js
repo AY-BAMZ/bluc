@@ -8,8 +8,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MainNav from "./routes/MainStack";
 import ThemeProvider from "./context/ThemeContext";
 import AuthProvider from "./context/AuthContext";
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -33,10 +31,7 @@ export default function App() {
           <PaperProvider>
             <AuthProvider>
               <ThemeProvider>
-              <ApplicationProvider {...eva} theme={eva.light}>
-
                 <MainNav />
-              </ApplicationProvider>
               </ThemeProvider>
             </AuthProvider>
           </PaperProvider>
