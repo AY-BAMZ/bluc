@@ -44,7 +44,6 @@ export default function CreateGoal() {
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
 
-
   // create, edit and delete tasks
   const [tasks, setTasks] = useState([]);
   const [taskText, setTaskText] = useState("");
@@ -178,9 +177,23 @@ export default function CreateGoal() {
               />
               <InputButton onPress={openModal}>
                 {date ? (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>{date}</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.black },
+                    ]}
+                  >
+                    {date}
+                  </Text>
                 ) : (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>Start date</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.placeholder },
+                    ]}
+                  >
+                    Start date
+                  </Text>
                 )}
               </InputButton>
             </View>
@@ -192,11 +205,23 @@ export default function CreateGoal() {
               />
               <InputButton onPress={showTheTimePicker}>
                 {time ? (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.black },
+                    ]}
+                  >
                     {time.toLocaleTimeString()}
                   </Text>
                 ) : (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>Start time</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.placeholder },
+                    ]}
+                  >
+                    Start time
+                  </Text>
                 )}
               </InputButton>
             </View>
@@ -225,9 +250,23 @@ export default function CreateGoal() {
               />
               <InputButton onPress={openEndDateModal}>
                 {endDate ? (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>{endDate}</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.black },
+                    ]}
+                  >
+                    {endDate}
+                  </Text>
                 ) : (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>End date</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.placeholder },
+                    ]}
+                  >
+                    End date
+                  </Text>
                 )}
               </InputButton>
             </View>
@@ -239,11 +278,23 @@ export default function CreateGoal() {
               />
               <InputButton onPress={showTheEndTimePicker}>
                 {endTime ? (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.black}]}>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.black },
+                    ]}
+                  >
                     {endTime.toLocaleTimeString()}
                   </Text>
                 ) : (
-                  <Text style={[globalStyles.textSix, {color: theme.colors.placeholder}]}>End time</Text>
+                  <Text
+                    style={[
+                      globalStyles.textSix,
+                      { color: theme.colors.placeholder },
+                    ]}
+                  >
+                    End time
+                  </Text>
                 )}
               </InputButton>
             </View>
@@ -257,7 +308,7 @@ export default function CreateGoal() {
               value={taskText}
               onChangeText={setTaskText}
             />
-            <TextButton onPress={addTask} >
+            <TextButton onPress={addTask}>
               {tasks.length > 0 ? "Add a New Task" : "Add Task"}
             </TextButton>
             <FlatList
