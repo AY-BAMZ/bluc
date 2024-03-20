@@ -38,16 +38,13 @@ export default function Login({ navigation }) {
     }
   };
 
-  const darkPageBackground =
-    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png";
-  const lightPageBackground =
-    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png";
-
   return (
     <ImageBackground
       source={
-        isDarkTheme ? { uri: darkPageBackground } : { uri: lightPageBackground }
-      } // Replace with the path to your image
+        isDarkTheme
+          ? require("../../assets/images/sign_in_bg_2.png")
+          : require("../../assets/images/sign_in_bg.png")
+      }
       style={styles.backgroundImage}
     >
       <View style={styles.container}>

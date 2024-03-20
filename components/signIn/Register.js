@@ -35,10 +35,10 @@ export default function Register({ navigation }) {
     }
   };
 
-  const darkPageBackground =
-    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png";
-  const lightPageBackground =
-    "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png";
+  // const darkPageBackground =
+  //   "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_2_sctsux.png";
+  // const lightPageBackground =
+  //   "https://res.cloudinary.com/dmixz7eur/image/upload/v1691890007/sign_in_bg_o1vzyb.png";
 
   return (
     <ImageBackground
